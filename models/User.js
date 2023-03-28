@@ -8,6 +8,13 @@ const User = new mongoose.Schema({
   user_last_name: { type: String },
   user_image: { type: String },
   user_description: { type: String },
+  communities: [{ type: String }],
+  user_groups: [
+    {
+      user_group_id: { type: String, required: true },
+      admins: [{ type: String, required: true }],
+    },
+  ],
 });
 
 export default mongoose.model("User", User);

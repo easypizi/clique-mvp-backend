@@ -13,6 +13,6 @@ router.get("/user/:id", UserController.getUserById);
 router.post("/create-user", UserController.createUser);
 
 //Update user data
-router.put("/update-user", UserController.updateUserData);
+router.patch("/update-user", UserController.updateUserData);
 
 export default router;

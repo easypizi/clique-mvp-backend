@@ -15,7 +15,7 @@ class UserService {
 
   async getUserById(id) {
     if (!id) {
-      throw new Error("user with such id already exists");
+      throw new Error("user id was not provided");
     }
     const user = await User.find({ user_id: id });
     return user;
@@ -28,7 +28,7 @@ class UserService {
 
   async updateUserData(user) {
     if (!user.user_id) {
-      throw new Error("user with such id already exists");
+      throw new Error("can't update without user id");
     }
 
     const updatedUser = await User.findOneAndUpdate(
