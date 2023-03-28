@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Space = new mongoose.Schema({
+const SuperGroup = new mongoose.Schema({
   group_id: { type: String, required: true },
   group_admins_id: [{ type: String, required: true }],
   group_spaces: [
@@ -11,4 +11,4 @@ const Space = new mongoose.Schema({
   ],
 });
 
-export default mongoose.model("Space", Space);
+export default mongoose.model("SuperGroup", SuperGroup);
