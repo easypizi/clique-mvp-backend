@@ -49,7 +49,7 @@ class UserController {
 
   async deleteUser(request, response) {
     try {
-      const deletedUser = await UserService.deleteUserData(request.params.id);
+      const deletedUser = await UserService.deleteUser(request.params.id);
       return response
         .status(200)
         .json({ status: "success", data: deletedUser });
