@@ -46,6 +46,17 @@ class UserController {
       response.status(500).json({ status: "fail", message: error });
     }
   }
+
+  async deleteUser(request, response) {
+    try {
+      const deletedUser = await UserService.deleteUserData(request.params.id);
+      return response
+        .status(200)
+        .json({ status: "success", data: deletedUser });
+    } catch (error) {
+      response.status(500).json({ status: "fail", message: error });
+    }
+  }
 }
 
 export default new UserController();

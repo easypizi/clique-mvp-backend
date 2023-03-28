@@ -11,7 +11,7 @@ const User = new mongoose.Schema({
   communities: [{ type: String }],
   user_groups: [
     {
-      user_group_id: { type: String, required: true },
+      group_id: { type: String, required: true },
       admins: [{ type: String, required: true }],
     },
   ],

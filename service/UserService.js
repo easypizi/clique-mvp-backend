@@ -39,6 +39,15 @@ class UserService {
 
     return updatedUser;
   }
+
+  async deleteUser(id) {
+    if (!id) {
+      throw new Error("can't delete without user id");
+    }
+    const deletedUser = await User.findOneAndDelete({ user_id: id });
+
+    return deletedUser;
+  }
 }
 
 export default new UserService();

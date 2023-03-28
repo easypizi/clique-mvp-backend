@@ -15,4 +15,6 @@ router.post("/create-user", UserController.createUser);
 //Update user data
 router.patch("/update-user", UserController.updateUserData);
 
+router.delete("/delete-user/:id", UserController.deleteUser);
+
 export default router;
