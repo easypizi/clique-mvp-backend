@@ -5,7 +5,7 @@ import cors from "cors";
 
 import userRouter from "./routes/UserRouter.js";
 import spaceRouter from "./routes/SpaceRouter.js";
-import groupRouter from "./routes/groupRouter.js";
+import groupRouter from "./routes/GroupRouter.js";
 
 dotenv.config();
 
