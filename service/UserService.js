@@ -42,7 +42,7 @@ class UserService {
 
   async deleteUser(id) {
     if (!id) {
-      throw new Error("can't delete without user id");
+      throw new Error("can't delete user without user id");
     }
     const deletedUser = await User.findOneAndDelete({ user_id: id });
 

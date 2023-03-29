@@ -1,8 +1,11 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import router from './router.js';
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cors from "cors";
+
+import userRouter from "./routes/UserRouter.js";
+import spaceRouter from "./routes/SpaceRouter.js";
+import groupRouter from "./routes/groupRouter.js";
 
 dotenv.config();
 
@@ -12,7 +15,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use('/api', router);
+app.use("/api", userRouter);
+app.use("/api", spaceRouter);
+app.use("/api", groupRouter);
 
 async function startApp() {
   try {

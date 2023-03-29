@@ -4,6 +4,7 @@ const User = new mongoose.Schema({
   user_id: { type: String, required: true },
   user_name: { type: String, required: true },
   user_telegram_link: { type: String, required: true },
+  user_personal_id: { type: String },
   user_last_name: { type: String },
   user_image: { type: String },
   user_description: { type: String },

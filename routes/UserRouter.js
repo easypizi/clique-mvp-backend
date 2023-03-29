@@ -1,5 +1,5 @@
 import Router from "express";
-import UserController from "./controllers/UserController.js";
+import UserController from "../controllers/UserController.js";
 
 const router = new Router();
 
@@ -19,4 +19,4 @@ router.patch("/update-user", UserController.updateUserData);
 //Delete user data
 router.delete("/delete-user/:id", UserController.deleteUser);
 
-export default router;
+export default userRouter;
