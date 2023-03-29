@@ -1,22 +1,21 @@
 import Router from "express";
 import GroupController from "../controllers/GroupController.js";
 
-const router = new Router();
+const groupRouter = new Router();
 
-//USERS API
-//Get all users
-router.get("/group", GroupController.getAllGroups);
+//Get all groups
+groupRouter.get("/group", GroupController.getAllGroups);
 
-//Get user by ID
-router.get("/group/:id", GroupController.getGroupById);
+//Get group by ID
+groupRouter.get("/group/:id", GroupController.getGroupById);
 
-//Create new user
-router.post("/create-group", GroupController.createGroup);
+//Create new group
+groupRouter.post("/create-group", GroupController.createGroup);
 
-//Update user data
-router.patch("/update-group", GroupController.updateGroupData);
+//Update group data
+groupRouter.patch("/update-group", GroupController.updateGroupData);
 
-//Delete user data
-router.delete("/delete-group/:id", GroupController.deleteGroup);
+//Delete group data
+groupRouter.delete("/delete-group/:id", GroupController.deleteGroup);
 
 export default groupRouter;

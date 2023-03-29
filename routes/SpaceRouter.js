@@ -1,22 +1,21 @@
 import Router from "express";
 import SpaceController from "../controllers/SpaceController.js";
 
-const router = new Router();
+const spaceRouter = new Router();
 
-//USERS API
-//Get all users
-router.get("/space", SpaceController.getAllSpaces);
+//Get all spaces
+spaceRouter.get("/space", SpaceController.getAllSpaces);
 
-//Get user by ID
-router.get("/space/:id", SpaceController.getSpaceById);
+//Get space by ID
+spaceRouter.get("/space/:id", SpaceController.getSpaceById);
 
-//Create new user
-router.post("/create-space", SpaceController.createSpace);
+//Create new space
+spaceRouter.post("/create-space", SpaceController.createSpace);
 
-//Update user data
-router.patch("/update-space", SpaceController.updateSpaceData);
+//Update space data
+spaceRouter.patch("/update-space", SpaceController.updateSpaceData);
 
-//Delete user data
-router.delete("/delete-space/:id", SpaceController.deleteSpace);
+//Delete space data
+spaceRouter.delete("/delete-space/:id", SpaceController.deleteSpace);
 
 export default spaceRouter;
