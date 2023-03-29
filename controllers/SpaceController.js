@@ -57,6 +57,9 @@ class SpaceController {
       response.status(500).json({ status: "fail", message: error });
     }
   }
+
+  //TODO: add method to add groups to space space_groups_id through the CRON each night.
+  //TODO: get all groups for community space (Maybe in GroupsController?)
 }
 
 export default new SpaceController();

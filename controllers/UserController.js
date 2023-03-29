@@ -57,6 +57,10 @@ class UserController {
       response.status(500).json({ status: "fail", message: error });
     }
   }
+
+  //TODO: add method to change visibility of the user in tinder mechanics.
+  //TODO: add method to save private_chat_id to the group for verification
+  //TODO: add method for verification user inside the TWA - provide private_chat_id and user_id from query params and match it with user Data in DB
 }
 
 export default new UserController();

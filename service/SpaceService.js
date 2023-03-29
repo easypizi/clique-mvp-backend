@@ -1,4 +1,6 @@
 import Space from "../models/Space.js";
+import { uniqueArrayElements } from "../helpers/dataHelpers.js";
+import { mergeSpacePermissions } from "../helpers/spaceDataHelpers.js";
 
 class SpaceService {
   async createSpace(data) {
@@ -9,7 +11,6 @@ class SpaceService {
         error: true,
       };
     } else {
-      //TODO: additional check is it possible or not and get Search from other tables such as groups and etc.
       const createdSpace = Space.create(data);
       return createdSpace;
     }
@@ -28,34 +29,44 @@ class SpaceService {
     return allSpaces;
   }
 
-  async updateSpaceData(data) {
-    if (!data.space_id) {
+  async updateSpaceData(spaceData) {
+    if (!spaceData.space_id) {
       throw new Error(
         "can't update space name or description without provided id of the space"
       );
     }
 
-    // let updateData = data;
+    const space = await Space.findOne({ space_id: spaceData.space_id });
 
-    // if (data.space_groups) {
-    //   const space = await Space.findOne({ space_id: data.space_id });
-    //   const currentSpaceGroups = space.space_groups;
+    if (!space) {
+      throw new Error("there is no space with such id");
+    }
 
-    //   if (!currentSpaceGroups.includes(data.space_groups)) {
-    //     updateData.space_groups = [
-    //       ...updateData.space_groups,
-    //       data.space_groups,
-    //     ];
-    //   }
-    // }
+    let updateData = { ...spaceData };
 
-    // console.log(updateData);
+    if (spaceData.space_groups) {
+      const currentSpaceGroups = space.space_groups;
+      const newGroups = uniqueArrayElements(
+        currentSpaceGroups,
+        spaceData.space_groups
+      );
+      updateData.space_groups = newGroups;
+    }
+
+    if (spaceData.permissions) {
+      const currentSpacePermissions = space.permissions;
+      const newPermissions = mergeSpacePermissions(
+        currentSpacePermissions,
+        spaceData.permissions
+      );
+      updateData.permissions = newPermissions;
+    }
 
     const updatedSpace = await Space.findOneAndUpdate(
       {
-        space_id: data.space_id,
+        space_id: spaceData.space_id,
       },
-      data,
+      updateData,
       { new: true }
     );
 

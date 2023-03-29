@@ -31,9 +31,26 @@ class GroupService {
       throw new Error("can't update without group id");
     }
 
+    const group = await Group.findOne({ group_id: groupData.group_id });
+
+    if (!group) {
+      throw new Error("there is no group with such id");
+    }
+
+    let updateData = { ...groupData };
+
+    if (groupData.group_admins_id) {
+      const currentGroupAdmins = group.group_admins_id;
+      const newAdmins = uniqueArrayElements(
+        currentGroupAdmins,
+        groupData.group_admins_id
+      );
+      updateData.group_admin_id = newAdmins;
+    }
+
     const updatedGroup = await Group.findOneAndUpdate(
       { group_id: groupData.group_id },
-      groupData,
+      updateData,
       { new: true }
     );
 
