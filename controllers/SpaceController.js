@@ -1,3 +1,5 @@
+import SpaceService from "../service/SpaceService.js";
+
 class SpaceController {
   async createSpace(request, response) {
     try {
