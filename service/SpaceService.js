@@ -35,6 +35,22 @@ class SpaceService {
       );
     }
 
+    // let updateData = data;
+
+    // if (data.space_groups) {
+    //   const space = await Space.findOne({ space_id: data.space_id });
+    //   const currentSpaceGroups = space.space_groups;
+
+    //   if (!currentSpaceGroups.includes(data.space_groups)) {
+    //     updateData.space_groups = [
+    //       ...updateData.space_groups,
+    //       data.space_groups,
+    //     ];
+    //   }
+    // }
+
+    // console.log(updateData);
+
     const updatedSpace = await Space.findOneAndUpdate(
       {
         space_id: data.space_id,
