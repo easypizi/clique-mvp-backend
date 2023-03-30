@@ -1,5 +1,5 @@
 import Group from "../models/Group.js";
-
+import { uniqueArrayElements } from "../helpers/dataHelpers.js";
 class GroupService {
   async createGroup(groupData) {
     const group = await Group.find({ group_id: groupData.group_id });

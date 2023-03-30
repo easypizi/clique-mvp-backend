@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { uniqueArrayElements } from "../helpers/dataHelpers.js";
 
 class UserService {
   async createUser(userData) {
@@ -26,14 +27,32 @@ class UserService {
     return allUsers;
   }
 
-  async updateUserData(user) {
-    if (!user.user_id) {
+  async updateUserData(userData) {
+    if (!userData.user_id) {
       throw new Error("can't update without user id");
     }
 
+    const user = await User.findOne({ user_id: userData.user_id });
+
+    if (!user) {
+      throw new Error("there is no user with such id");
+    }
+
+    let updateData = { ...userData };
+
+    if (userData.user_groups) {
+      const currentUserGroups = user.user_groups;
+      const newGroups = uniqueArrayElements(
+        currentUserGroups,
+        userData.user_groups
+      );
+
+      updateData.user_groups = newGroups;
+    }
+
     const updatedUser = await User.findOneAndUpdate(
-      { user_id: user.user_id },
-      user,
+      { user_id: userData.user_id },
+      updateData,
       { new: true }
     );
 
