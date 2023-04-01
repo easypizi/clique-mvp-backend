@@ -4,7 +4,6 @@ class GroupController {
   async createGroup(request, response) {
     try {
       const group = await GroupService.createGroup(request.body);
-
       if (group.error) {
         response.status(444).json({
           status: "fail",

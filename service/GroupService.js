@@ -8,7 +8,7 @@ class GroupService {
         error: true,
       };
     } else {
-      const createdGroup = Group.create(groupData);
+      const createdGroup = await Group.create(groupData);
       return createdGroup;
     }
   }
