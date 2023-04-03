@@ -27,6 +27,15 @@ class SpaceController {
     }
   }
 
+  async getUserSpaces(request, response) {
+    try{
+      const userSpaces = await SpaceService.getAllUserSpaces(request.query.id);
+      return response.status(200).json(userSpaces)
+    } catch(error) {
+      response.status(500).json({ status: "fail", message: error });
+    }
+  }
+
   async getAllSpaces(request, response) {
     try {
       const allSpaces = await SpaceService.getAllSpaces();
@@ -58,8 +67,6 @@ class SpaceController {
     }
   }
 
-  //TODO: add method to add groups to space space_groups_id through the CRON each night.
-  //TODO: get all groups for community space (Maybe in GroupsController?)
 }
 
 export default new SpaceController();

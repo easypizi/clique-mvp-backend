@@ -63,6 +63,16 @@ class SpaceService {
     }
   }
 
+  async getAllUserSpaces(id){
+    try{
+      const parsedIds = id.split(',');
+      const userSpaces = await Space.find({space_id: {$in: parsedIds}})
+      return userSpaces;
+    } catch (error){
+      console.log(error)
+    }
+  }
+
   async getAllSpaces() {
     const allSpaces = await Space.find();
     return allSpaces;

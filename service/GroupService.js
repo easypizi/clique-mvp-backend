@@ -46,7 +46,7 @@ class GroupService {
         currentGroupAdmins,
         groupData.group_admins_id
       );
-      updateData.group_admin_id = newAdmins;
+      updateData.group_admins_id = newAdmins;
     }
 
     const updatedGroup = await Group.findOneAndUpdate(

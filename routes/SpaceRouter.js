@@ -9,6 +9,9 @@ spaceRouter.get("/space", SpaceController.getAllSpaces);
 //Get space by ID
 spaceRouter.get("/space/:id", SpaceController.getSpaceById);
 
+//Get userSpaces by provided queryId
+spaceRouter.get('/user-spaces', SpaceController.getUserSpaces);
+
 //Create new space
 spaceRouter.post("/create-space", SpaceController.createSpace);
 
