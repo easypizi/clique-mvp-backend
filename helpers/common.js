@@ -7,4 +7,4 @@ export const flatten = (arr) => {
   return arr.reduce(function (flat, current) {
     return flat.concat(Array.isArray(current) ? flatten(current) : current);
   }, []);
-}
+};

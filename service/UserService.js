@@ -1,5 +1,6 @@
 import User from "../models/User.js";
-import { uniqueArrayElements } from "../helpers/dataHelpers.js";
+
+import { uniqueArrayElements } from "../helpers/common.js";
 
 class UserService {
   async createUser(userData) {

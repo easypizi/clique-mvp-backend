@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Space from "./Space.js";
 import Group from "./Group.js";
-import { flatten, uniqueArrayElements } from "../helpers/dataHelpers.js";
+import { flatten } from "../helpers/common.js";
 
 const User = new mongoose.Schema({
   //Use for authentification; Personal id.
@@ -20,7 +20,6 @@ const User = new mongoose.Schema({
 User.post(["save", "findOneAndUpdate"], async function (user) {
   try {
     const userGroupsId = user.user_groups;
-    const userSpaces = user.user_spaces;
     const userId = user.user_id;
     const groups = await Group.find({ group_id: { $in: userGroupsId } });
 
