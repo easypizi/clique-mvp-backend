@@ -21,7 +21,7 @@ class SpaceController {
   async getSpaceById(request, response) {
     try {
       const space = await SpaceService.getSpaceById(request.params.id);
-      return response.status(200).json(space ?? "No space with such ID");
+      return response.status(200).json(space);
     } catch (error) {
       response.status(500).json({ status: "fail", message: error });
     }
