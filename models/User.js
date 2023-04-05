@@ -4,7 +4,6 @@ import Group from "./Group.js";
 import { flatten } from "../helpers/common.js";
 
 const User = new mongoose.Schema({
-  //Use for authentification; Personal id.
   user_id: { type: String, required: true },
   user_name: { type: String, required: true },
   user_telegram_link: { type: String, required: true },
@@ -15,6 +14,8 @@ const User = new mongoose.Schema({
   user_image: { type: String },
   user_spaces: { type: [String] },
   user_groups: { type: [String] },
+  user_badges: {type: [String]},
+  user_links: {type: [String]}
 });
 
 User.post(["save", "findOneAndUpdate"], async function (user) {
