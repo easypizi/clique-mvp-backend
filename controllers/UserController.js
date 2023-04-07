@@ -4,7 +4,6 @@ class UserController {
   async createUser(request, response) {
     try {
       const user = await UserService.createUser(request.body);
-
       if (user.error) {
         response.status(444).json({
           status: "fail",

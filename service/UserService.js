@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-
+import UploadService from "./UploadService.js";
 import { uniqueArrayElements } from "../helpers/common.js";
 
 class UserService {
@@ -10,6 +10,18 @@ class UserService {
         error: true,
       };
     } else {
+      if (userData.user_image) {
+        const rawPhoto = await UploadService.uploadPhotoFromTelegram(
+          userData.user_image,
+          userData.user_id
+        );
+
+        if (rawPhoto) {
+          const processedUrl = await UploadService.processPhotoToWebp(rawPhoto);
+          userData["user_image"] = processedUrl;
+        }
+      }
+
       const createdUser = User.create(userData);
       return createdUser;
     }
@@ -49,6 +61,18 @@ class UserService {
       );
 
       updateData.user_groups = newGroups;
+    }
+
+    if (userData.user_image) {
+      const rawPhoto = await UploadService.uploadPhotoFromTelegram(
+        userData.user_image,
+        userData.user_id
+      );
+
+      if (rawPhoto) {
+        const processedUrl = await UploadService.processPhotoToWebp(rawPhoto);
+        updateData["user_image"] = processedUrl;
+      }
     }
 
     const updatedUser = await User.findOneAndUpdate(
