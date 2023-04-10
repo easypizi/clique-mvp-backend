@@ -14,8 +14,8 @@ const User = new mongoose.Schema({
   user_image: { type: String },
   user_spaces: { type: [String] },
   user_groups: { type: [String] },
-  user_badges: {type: [String]},
-  user_links: {type: [String]}
+  user_badges: { type: [String] },
+  user_links: { type: [String] },
 });
 
 User.post(["save", "findOneAndUpdate"], async function (user) {

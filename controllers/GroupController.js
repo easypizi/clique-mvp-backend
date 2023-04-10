@@ -13,7 +13,7 @@ class GroupController {
         return response.status(200).json({ status: "success", data: group });
       }
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -22,7 +22,7 @@ class GroupController {
       const group = await GroupService.getGroupById(request.params.id);
       return response.status(200).json(group ?? "No group with such ID");
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -31,7 +31,7 @@ class GroupController {
       const allGroups = await GroupService.getAllGroups();
       return response.status(200).json(allGroups);
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -42,7 +42,7 @@ class GroupController {
         .status(200)
         .json({ status: "success", data: updatedGroup });
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -53,7 +53,7 @@ class GroupController {
         .status(200)
         .json({ status: "success", data: deletedGroup });
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 

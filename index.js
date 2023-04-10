@@ -2,10 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 
 import userRouter from "./routes/UserRouter.js";
 import spaceRouter from "./routes/SpaceRouter.js";
 import groupRouter from "./routes/GroupRouter.js";
+import fileRouter from "./routes/FileRouter.js";
 
 dotenv.config();
 
@@ -15,9 +17,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(fileUpload({}));
 app.use("/api", userRouter);
 app.use("/api", spaceRouter);
 app.use("/api", groupRouter);
+app.use("/api", fileRouter);
 
 async function startApp() {
   try {

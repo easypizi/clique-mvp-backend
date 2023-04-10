@@ -14,7 +14,7 @@ class SpaceController {
         return response.status(200).json({ status: "success", data: space });
       }
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -23,16 +23,16 @@ class SpaceController {
       const space = await SpaceService.getSpaceById(request.params.id);
       return response.status(200).json(space);
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
   async getUserSpaces(request, response) {
-    try{
+    try {
       const userSpaces = await SpaceService.getAllUserSpaces(request.query.id);
-      return response.status(200).json(userSpaces)
-    } catch(error) {
-      response.status(500).json({ status: "fail", message: error });
+      return response.status(200).json(userSpaces);
+    } catch (error) {
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -41,7 +41,7 @@ class SpaceController {
       const allSpaces = await SpaceService.getAllSpaces();
       return response.status(200).json(allSpaces);
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -52,7 +52,7 @@ class SpaceController {
         .status(200)
         .json({ status: "success", data: updatedSpace });
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -63,10 +63,9 @@ class SpaceController {
         .status(200)
         .json({ status: "success", data: deletedSpace });
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
-
 }
 
 export default new SpaceController();

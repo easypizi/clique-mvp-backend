@@ -2,6 +2,8 @@ import * as Upload from "upload-js-full";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 
+import User from "../models/User.js";
+
 dotenv.config();
 
 const uploadManager = new Upload.UploadManager(
@@ -44,6 +46,58 @@ class UploadService {
       );
 
     return result;
+  }
+
+  async uploadUserPhotoAndUpdateUser(userId, picture) {
+    if (!userId) {
+      throw new Error("id was not provided for uploading photos");
+    }
+
+    try {
+      const user = await User.findOne({ user_id: userId });
+      const buffer = picture.data;
+      const bufferSize = picture.size;
+
+      const rawPhoto = await uploadManager
+        .upload({
+          accountId: process.env.UPLOAD_API_ACCOUNT_ID,
+          data: buffer,
+          size: parseInt(bufferSize),
+          mime: "image/jpeg",
+          path: {
+            fileName: `${userId}.jpeg`,
+            fileNameVariablesEnabled: true,
+            folderPath: `${this.photosStorageUrl}/raw`,
+            folderPathVariablesEnabled: true,
+          },
+        })
+        .then(
+          (result) => {
+            return result;
+          },
+          (error) => {
+            console.error(error);
+            return null;
+          }
+        );
+
+      if (rawPhoto && user) {
+        const processedUrl = await this.processPhotoToWebp(rawPhoto);
+        const updateData = { user_id: userId };
+        updateData["user_image"] = processedUrl;
+
+        const updatedUser = await User.findOneAndUpdate(
+          { user_id: userData.user_id },
+          updateData,
+          { new: true }
+        );
+
+        return updatedUser;
+      }
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
   }
 
   async uploadPhotoFromTelegram(url, userId) {

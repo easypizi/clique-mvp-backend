@@ -13,7 +13,7 @@ class UserController {
         return response.status(200).json({ status: "success", data: user });
       }
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -22,7 +22,7 @@ class UserController {
       const user = await UserService.getUserById(request.params.id);
       return response.status(200).json(user ?? "No user with such ID");
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -31,7 +31,7 @@ class UserController {
       const allUsers = await UserService.getAllUsers();
       return response.status(200).json(allUsers);
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -42,7 +42,7 @@ class UserController {
         .status(200)
         .json({ status: "success", data: updatedUser });
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
@@ -53,7 +53,7 @@ class UserController {
         .status(200)
         .json({ status: "success", data: deletedUser });
     } catch (error) {
-      response.status(500).json({ status: "fail", message: error });
+      response.status(500).json({ status: "fail", message: error.message });
     }
   }
 
