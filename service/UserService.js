@@ -18,7 +18,8 @@ class UserService {
 
         if (rawPhoto) {
           const processedUrl = await UploadService.processPhotoToWebp(rawPhoto);
-          userData["user_image"] = processedUrl;
+          const date = Date.now();
+          userData["user_image"] = `${processedUrl}&last_created=${date}`;
         }
       }
 

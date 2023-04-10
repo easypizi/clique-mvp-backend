@@ -84,7 +84,8 @@ class UploadService {
       if (rawPhoto && user) {
         const processedUrl = await this.processPhotoToWebp(rawPhoto);
         const updateData = { user_id: userId };
-        updateData["user_image"] = processedUrl;
+        const date = Date.now();
+        updateData["user_image"] = `${processedUrl}&last_updated=${date}`;
 
         const updatedUser = await User.findOneAndUpdate(
           { user_id: userId },
