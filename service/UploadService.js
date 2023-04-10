@@ -87,7 +87,7 @@ class UploadService {
         updateData["user_image"] = processedUrl;
 
         const updatedUser = await User.findOneAndUpdate(
-          { user_id: userData.user_id },
+          { user_id: userId },
           updateData,
           { new: true }
         );
