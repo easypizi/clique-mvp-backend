@@ -143,9 +143,9 @@ class UploadService {
       return await fileApi
         .processFile({
           accountId: accountId,
-          cache: true,
-          cache_perm: "auto",
-          cache_ttl: 31536000,
+          // cache: true,
+          // cache_perm: "auto",
+          // cache_ttl: 31536000,
           filePath: filePath,
           large: false,
           transformation: "telegramWepb",
