@@ -58,6 +58,7 @@ class SpaceService {
           spaceUsers: formatUsersData(currentSpaceUsers),
           spaceMessages: formatMessagesData(spaceMessages),
           spacePermissions: currentSpace.space_permissions,
+          spaceHashtags: currentSpace.space_message_hashtags,
         };
 
         return result;
