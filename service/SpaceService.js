@@ -6,6 +6,8 @@ import { uniqueArrayElements } from "../helpers/common.js";
 import { mergeSpacePermissions } from "../helpers/spaceDataHelpers.js";
 import { formatGroupsData } from "../helpers/groupDataHelpers.js";
 import { formatUsersData } from "../helpers/userDataHelpers.js";
+import { formatMessagesData } from "../helpers/messageDataHelpers.js";
+import Message from "../models/Message.js";
 
 class SpaceService {
   async createSpace(data) {
@@ -43,6 +45,9 @@ class SpaceService {
         const currentSpaceUsers = await User.find({
           user_spaces: { $in: [spaceId] },
         });
+        const spaceMessages = await Message.find({
+          message_space: { $in: [spaceId] },
+        });
 
         const result = {
           spaceId: spaceId,
@@ -51,6 +56,7 @@ class SpaceService {
           spaceOwner: currentSpace.space_owner_id,
           spaceGroups: formatGroupsData(currentSpaceGroups),
           spaceUsers: formatUsersData(currentSpaceUsers),
+          spaceMessages: formatMessagesData(spaceMessages),
           spacePermissions: currentSpace.space_permissions,
         };
 
@@ -63,13 +69,13 @@ class SpaceService {
     }
   }
 
-  async getAllUserSpaces(id){
-    try{
-      const parsedIds = id.split(',');
-      const userSpaces = await Space.find({space_id: {$in: parsedIds}})
+  async getAllUserSpaces(id) {
+    try {
+      const parsedIds = id.split(",");
+      const userSpaces = await Space.find({ space_id: { $in: parsedIds } });
       return userSpaces;
-    } catch (error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   }
 
