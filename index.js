@@ -8,6 +8,7 @@ import userRouter from "./routes/UserRouter.js";
 import spaceRouter from "./routes/SpaceRouter.js";
 import groupRouter from "./routes/GroupRouter.js";
 import fileRouter from "./routes/FileRouter.js";
+import messageRouter from "./routes/MessageRouter.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use("/api", userRouter);
 app.use("/api", spaceRouter);
 app.use("/api", groupRouter);
 app.use("/api", fileRouter);
+app.use("/api", messageRouter);
 
 async function startApp() {
   try {

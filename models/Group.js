@@ -8,8 +8,7 @@ const Group = new mongoose.Schema({
   group_id: { type: String, required: true },
   group_link: { type: String },
   group_name: { type: String },
-  group_type: {type: String},
-  //Show groups for community - get space owner in this array, if yes - show in community space.
+  group_type: { type: String },
   group_admins_id: { type: [String], required: true },
 });
 

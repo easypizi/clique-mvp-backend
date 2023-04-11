@@ -4,10 +4,9 @@ const Space = new mongoose.Schema({
   space_id: { type: String, required: true },
   space_name: { type: String, required: true },
   space_description: { type: String, required: true },
-  //Match with user_id to show that he is space owner
   space_owner_id: { type: String, required: true },
   space_groups_id: { type: [String] },
-  //Modules for future paid function
+  space_message_hashtags: { type: [String] },
   permissions: [
     {
       module_name: { type: String, required: true },
@@ -17,5 +16,3 @@ const Space = new mongoose.Schema({
 });
 
 export default mongoose.model("Space", Space);
-
-

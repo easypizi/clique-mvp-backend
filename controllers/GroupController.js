@@ -56,9 +56,6 @@ class GroupController {
       response.status(500).json({ status: "fail", message: error.message });
     }
   }
-
-  //TODO: get groups by search params (provided space_id -> find space -> get groups id -> filter all groups by this params -> return groups array
-  //In the future find optimization method to store and hold this data.
 }
 
 export default new GroupController();
