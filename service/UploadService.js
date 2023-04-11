@@ -101,7 +101,7 @@ class UploadService {
     }
   }
 
-  async uploadPhotoFromTelegram(url, userId) {
+  async uploadPhotoFromTelegram(url, userId, path = "raw") {
     if (!url || !userId) {
       throw new Error("url or id was not provided for uploading photos");
     }
@@ -118,7 +118,7 @@ class UploadService {
             path: {
               fileName: `${userId}.jpeg`,
               fileNameVariablesEnabled: true,
-              folderPath: `${this.photosStorageUrl}/raw`,
+              folderPath: `${this.photosStorageUrl}/${path}`,
               folderPathVariablesEnabled: true,
             },
           })

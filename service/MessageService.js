@@ -1,5 +1,6 @@
 import Message from "../models/Message.js";
 import Space from "../models/Space.js";
+import UploadService from "./UploadService.js";
 
 class MessageService {
   async getAllMessages() {
@@ -28,6 +29,17 @@ class MessageService {
             ...messageData,
             message_space: properSpaces,
           };
+
+          if (messageDataWithSpacesId.message_user_photo) {
+            const uploadedPhoto = await UploadService.uploadPhotoFromTelegram(
+              messageDataWithSpacesId.message_user_photo,
+              messageDataWithSpacesId.message_user_id,
+              "messages"
+            );
+
+            messageDataWithSpacesId["message_user_photo"] =
+              uploadedPhoto.fileUrl;
+          }
 
           const createdMessage = await Message.create(messageDataWithSpacesId);
           return createdMessage;
