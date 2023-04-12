@@ -70,8 +70,8 @@ class MessageService {
 
     if (messageData.message_user_photo) {
       const uploadedPhoto = await UploadService.uploadPhotoFromTelegram(
-        messageDataWithSpacesId.message_user_photo,
-        messageDataWithSpacesId.message_user_id,
+        messageData.message_user_photo,
+        messageData.message_user_id,
         "messages"
       );
 
