@@ -19,6 +19,8 @@ class SpaceService {
           error: true,
         };
       } else {
+        //TODO: Проходить по всем имеющимся в базе группам и искать совпадения по создателю спейса и по имеющимся в базе людям и записывать в space_groups_id id такого спейса.
+
         const createdSpace = Space.create(data);
         return createdSpace;
       }
