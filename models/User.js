@@ -11,6 +11,7 @@ const User = new mongoose.Schema({
   user_description: { type: String },
   is_visible: { type: Boolean },
   user_bot_chat_id: { type: String },
+  user_last_chosen_space: { type: String },
   user_image: { type: String },
   user_spaces: { type: [String] },
   user_groups: { type: [String] },
