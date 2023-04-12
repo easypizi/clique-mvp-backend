@@ -18,7 +18,7 @@ class MessageService {
       if (spaces && spaces.length) {
         const properSpaces = spaces
           .filter((space) =>
-            space?.space_message_hashtags.some((item) =>
+            space?.space_message_hashtags?.some((item) =>
               message_tags.includes(item)
             )
           )
