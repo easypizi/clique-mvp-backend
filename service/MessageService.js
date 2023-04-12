@@ -68,6 +68,16 @@ class MessageService {
       throw new Error("there is no message with such id or group id");
     }
 
+    if (messageData.message_user_photo) {
+      const uploadedPhoto = await UploadService.uploadPhotoFromTelegram(
+        messageDataWithSpacesId.message_user_photo,
+        messageDataWithSpacesId.message_user_id,
+        "messages"
+      );
+
+      messageData["message_user_photo"] = uploadedPhoto.fileUrl;
+    }
+
     const updatedMessage = await Message.findOneAndUpdate(
       {
         message_id: messageData.message_id,
