@@ -13,6 +13,7 @@ export const formatMessagesData = (messages) => {
       message_link,
       message_user_photo,
       message_user_name,
+      message_space,
     }) => {
       return {
         date: message_date,
@@ -23,6 +24,7 @@ export const formatMessagesData = (messages) => {
         text: message_text,
         link: message_link,
         userPhoto: message_user_photo,
+        spaces: message_space,
       };
     }
   );
