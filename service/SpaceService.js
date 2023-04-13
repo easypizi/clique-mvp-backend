@@ -19,9 +19,17 @@ class SpaceService {
           error: true,
         };
       } else {
-        //TODO: Проходить по всем имеющимся в базе группам и искать совпадения по создателю спейса и по имеющимся в базе людям и записывать в space_groups_id id такого спейса.
+        const createdData = data;
+        const groups = await Group.find({
+          group_admins_id: { $in: [createdData.space_owner_id] },
+        });
 
-        const createdSpace = Space.create(data);
+        if (groups && groups.length) {
+          const groupsIds = groups.map((group) => group.group_id);
+          createdData["space_groups_id"] = groupsIds;
+        }
+
+        const createdSpace = Space.create(createdData);
         return createdSpace;
       }
     } catch (error) {
@@ -102,13 +110,13 @@ class SpaceService {
 
     let updateData = { ...spaceData };
 
-    if (spaceData.space_groups) {
-      const currentSpaceGroups = space.space_groups;
+    if (spaceData.space_groups_id) {
+      const currentSpaceGroups = space.space_groups_id;
       const newGroups = uniqueArrayElements(
         currentSpaceGroups,
-        spaceData.space_groups
+        spaceData.space_groups_id
       );
-      updateData.space_groups = newGroups;
+      updateData.space_groups_id = newGroups;
     }
 
     if (spaceData.permissions) {

@@ -6,10 +6,11 @@ import User from "./User.js";
 // this model is handle data for chat lists
 const Group = new mongoose.Schema({
   group_id: { type: String, required: true },
+  group_admins_id: { type: [String], required: true },
   group_link: { type: String },
   group_name: { type: String },
   group_type: { type: String },
-  group_admins_id: { type: [String], required: true },
+  group_hidden_spaces: { type: [String] },
 });
 
 Group.post(["save", "findOneAndUpdate"], async function (group) {
