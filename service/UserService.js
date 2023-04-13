@@ -33,7 +33,18 @@ class UserService {
       throw new Error("user id was not provided");
     }
     const user = await User.find({ user_id: id });
-    return user;
+
+    let updatedUser = user.slice();
+
+    if (updatedUser.length) {
+      const data = updatedUser[0];
+      data["user_spaces"] = data.user_spaces.filter((space) =>
+        data.user_hidden_spaces.some((hiddenSpace) => hiddenSpace !== space)
+      );
+      updatedUser[0] = data;
+    }
+
+    return updatedUser;
   }
 
   async getAllUsers() {
