@@ -38,8 +38,9 @@ class UserService {
 
     if (updatedUser.length) {
       const data = updatedUser[0];
-      data["user_spaces"] = data.user_spaces.filter((space) =>
-        data.user_hidden_spaces.some((hiddenSpace) => hiddenSpace !== space)
+
+      data["user_spaces"] = data?.user_spaces?.filter(
+        (space) => !data?.user_hidden_spaces?.includes(space)
       );
       updatedUser[0] = data;
     }
