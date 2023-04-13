@@ -13,6 +13,7 @@ export const formatUsersData = (users) => {
       user_image,
       user_links,
       user_badges,
+      user_hidden_spaces,
     }) => {
       return {
         userId: user_id,
@@ -24,7 +25,7 @@ export const formatUsersData = (users) => {
         userImage: user_image,
         userLinks: user_links,
         userBadges: user_badges,
-
+        userHiddenSpaces: user_hidden_spaces,
       };
     }
   );
