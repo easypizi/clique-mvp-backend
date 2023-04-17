@@ -251,7 +251,7 @@ class UploadService {
     }
 
     try {
-      const file = await File.findOne({ file_id: fileId });
+      const file = await File.findOneAndDelete({ file_id: fileId });
 
       if (file) {
         const result = await fileApi
