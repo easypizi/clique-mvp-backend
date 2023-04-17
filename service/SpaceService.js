@@ -7,7 +7,9 @@ import { mergeSpacePermissions } from "../helpers/spaceDataHelpers.js";
 import { formatGroupsData } from "../helpers/groupDataHelpers.js";
 import { formatUsersData } from "../helpers/userDataHelpers.js";
 import { formatMessagesData } from "../helpers/messageDataHelpers.js";
+import { formatFilesData } from "../helpers/fileDataHelpers.js";
 import Message from "../models/Message.js";
+import File from "../models/File.js";
 
 class SpaceService {
   async createSpace(data) {
@@ -58,6 +60,9 @@ class SpaceService {
         const spaceMessages = await Message.find({
           message_space: { $in: [spaceId] },
         });
+        const spaceFiles = await File.find({
+          space_id: id,
+        });
 
         const result = {
           spaceId: spaceId,
@@ -67,6 +72,7 @@ class SpaceService {
           spaceGroups: formatGroupsData(currentSpaceGroups),
           spaceUsers: formatUsersData(currentSpaceUsers),
           spaceMessages: formatMessagesData(spaceMessages),
+          spaceFiles: formatFilesData(spaceFiles),
           spacePermissions: currentSpace.space_permissions,
           spaceHashtags: currentSpace.space_message_hashtags,
         };
