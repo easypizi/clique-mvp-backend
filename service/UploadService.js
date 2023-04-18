@@ -2,7 +2,6 @@ import * as Upload from "upload-js-full";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
-import mime from "mime";
 
 import User from "../models/User.js";
 import File from "../models/File.js";
@@ -196,8 +195,7 @@ class UploadService {
       const bufferSize = file.size;
       const mimeType = file.mimetype;
       const fileName = file.name;
-      const extension =
-        mime.getExtension(mimeType) ?? getFileExtension(fileName);
+      const extension = getFileExtension(fileName);
 
       if (bufferSize >= MAX_FILE_SIZE) {
         throw new Error(
@@ -263,8 +261,7 @@ class UploadService {
 
     try {
       const uniqIdentifier = uuidv4();
-      const extension =
-        mime.getExtension(mime_type) ?? getFileExtension(file_name);
+      const extension = getFileExtension(file_name);
 
       const cdnFile = await fetch(file_url).then(async (response) => {
         const buffer = Buffer.from(await response.arrayBuffer());
@@ -331,7 +328,9 @@ class UploadService {
         const result = await fileApi
           .deleteFile({
             accountId: process.env.UPLOAD_API_ACCOUNT_ID,
-            filePath: `${this.fileStorageUrl}/${file.space_id}/${file.file_name}`,
+            filePath: `${this.fileStorageUrl}/${file.space_id}/${
+              file.file_id
+            }.${file.file_type.toLowerCase()}`,
           })
           .then(
             () => {
@@ -341,8 +340,7 @@ class UploadService {
               };
             },
             (error) => {
-              console.error(error);
-              throw new Error(error);
+              throw new Error(error.message);
             }
           );
         return result;
