@@ -2,11 +2,11 @@ import * as Upload from "upload-js-full";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
-import mime from "mime-types";
+import mime from "mime";
 
 import User from "../models/User.js";
 import File from "../models/File.js";
-import { formatFileSize } from "../helpers/common.js";
+import { formatFileSize, getFileExtension } from "../helpers/common.js";
 
 dotenv.config();
 
@@ -195,8 +195,9 @@ class UploadService {
       const buffer = file.data;
       const bufferSize = file.size;
       const mimeType = file.mimetype;
-      const extension = mime.extension(mimeType);
       const fileName = file.name;
+      const extension =
+        mime.getExtension(mimeType) ?? getFileExtension(fileName);
 
       if (bufferSize >= MAX_FILE_SIZE) {
         throw new Error(
@@ -233,7 +234,7 @@ class UploadService {
           file_name: fileName,
           file_id: uniqIdentifier,
           file_size: formatFileSize(uploadedFile.size),
-          file_type: mime.extension(uploadedFile.mime)?.toUpperCase(),
+          file_type: extension?.toUpperCase(),
           file_url: uploadedFile.fileUrl,
           file_date: Date.now(),
         };
@@ -262,7 +263,8 @@ class UploadService {
 
     try {
       const uniqIdentifier = uuidv4();
-      const extension = mime.extension(mime_type);
+      const extension =
+        mime.getExtension(mime_type) ?? getFileExtension(file_name);
 
       const cdnFile = await fetch(file_url).then(async (response) => {
         const buffer = Buffer.from(await response.arrayBuffer());
@@ -303,7 +305,7 @@ class UploadService {
           file_name: file_name,
           file_id: uniqIdentifier,
           file_size: formatFileSize(cdnFile.size),
-          file_type: mime.extension(cdnFile.mime)?.toUpperCase(),
+          file_type: extension?.toUpperCase(),
           file_url: cdnFile.fileUrl,
           file_date: Date.now(),
         };
