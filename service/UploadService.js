@@ -191,9 +191,11 @@ class UploadService {
     }
 
     try {
+      const uniqIdentifier = uuidv4();
       const buffer = file.data;
       const bufferSize = file.size;
       const mimeType = file.mimetype;
+      const extension = mime.extension(mimeType);
       const fileName = file.name;
 
       if (bufferSize >= MAX_FILE_SIZE) {
@@ -209,7 +211,7 @@ class UploadService {
           size: parseInt(bufferSize),
           mime: mimeType,
           path: {
-            fileName: fileName,
+            fileName: `${uniqIdentifier}.${extension}`,
             fileNameVariablesEnabled: true,
             folderPath: `${this.fileStorageUrl}/${spaceId}`,
             folderPathVariablesEnabled: true,
@@ -229,7 +231,7 @@ class UploadService {
         const fileData = {
           space_id: spaceId,
           file_name: fileName,
-          file_id: uuidv4(),
+          file_id: uniqIdentifier,
           file_size: formatFileSize(uploadedFile.size),
           file_type: mime.extension(uploadedFile.mime)?.toUpperCase(),
           file_url: uploadedFile.fileUrl,
@@ -241,6 +243,76 @@ class UploadService {
       }
     } catch (error) {
       console.error(error);
+      throw new Error(error.message);
+    }
+  }
+
+  async uploadFileByUrl({
+    file_url,
+    space_id,
+    file_name,
+    mime_type,
+    file_size,
+  }) {
+    if (!file_url || !space_id) {
+      throw new Error(
+        "file_url or space_id was not provided for uploading new File"
+      );
+    }
+
+    try {
+      const uniqIdentifier = uuidv4();
+      const extension = mime.extension(mime_type);
+
+      const cdnFile = await fetch(file_url).then(async (response) => {
+        const buffer = Buffer.from(await response.arrayBuffer());
+
+        if (file_size >= MAX_FILE_SIZE) {
+          throw new Error(
+            "File for upload is too big, try to reduce size before upload"
+          );
+        }
+
+        return await uploadManager
+          .upload({
+            accountId: process.env.UPLOAD_API_ACCOUNT_ID,
+            data: buffer,
+            size: parseInt(file_size),
+            mime: mime_type,
+            path: {
+              fileName: `${uniqIdentifier}.${extension}`,
+              fileNameVariablesEnabled: true,
+              folderPath: `${this.fileStorageUrl}/${space_id}`,
+              folderPathVariablesEnabled: true,
+            },
+          })
+          .then(
+            (result) => {
+              return result;
+            },
+            (error) => {
+              console.error(error);
+              return null;
+            }
+          );
+      });
+
+      if (cdnFile) {
+        const fileData = {
+          space_id: space_id,
+          file_name: file_name,
+          file_id: uniqIdentifier,
+          file_size: formatFileSize(cdnFile.size),
+          file_type: mime.extension(cdnFile.mime)?.toUpperCase(),
+          file_url: cdnFile.fileUrl,
+          file_date: Date.now(),
+        };
+
+        const savedFile = File.create(fileData);
+        return savedFile;
+      }
+    } catch (error) {
+      console.log(error);
       throw new Error(error.message);
     }
   }

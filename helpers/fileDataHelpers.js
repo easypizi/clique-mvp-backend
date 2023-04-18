@@ -4,7 +4,15 @@ export const formatFilesData = (files) => {
   }
 
   return files.map(
-    ({ space_id, file_name, file_id, file_size, file_type, file_url }) => {
+    ({
+      space_id,
+      file_name,
+      file_id,
+      file_size,
+      file_type,
+      file_url,
+      file_date,
+    }) => {
       return {
         spaceId: space_id,
         name: file_name,

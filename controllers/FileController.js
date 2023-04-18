@@ -17,6 +17,17 @@ class FileController {
     }
   }
 
+  async uploadFileByUrl(request, response) {
+    try {
+      const createdFile = await UploadService.uploadFileByUrl(request.body);
+      return response
+        .status(200)
+        .json({ status: "success", data: createdFile });
+    } catch (error) {
+      response.status(500).json({ status: "fail", message: error.message });
+    }
+  }
+
   async uploadFile(request, response) {
     try {
       const fileUploaded = await UploadService.uploadFile(
