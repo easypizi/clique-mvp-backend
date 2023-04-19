@@ -234,6 +234,7 @@ class UploadService {
           file_size: formatFileSize(uploadedFile.size),
           file_type: extension?.toUpperCase(),
           file_url: uploadedFile.fileUrl,
+          file_mime: uploadedFile.mime,
           file_date: Date.now(),
         };
 
@@ -304,6 +305,7 @@ class UploadService {
           file_size: formatFileSize(cdnFile.size),
           file_type: extension?.toUpperCase(),
           file_url: cdnFile.fileUrl,
+          file_mime: cdnFile.mime,
           file_date: Date.now(),
         };
 

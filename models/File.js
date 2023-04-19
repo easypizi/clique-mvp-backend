@@ -8,6 +8,7 @@ const File = new mongoose.Schema({
   file_type: { type: String, required: true },
   file_url: { type: String, required: true },
   file_date: { type: Number, required: true },
+  file_mime: { type: String },
 });
 
 export default mongoose.model("File", File);
