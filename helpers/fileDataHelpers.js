@@ -12,6 +12,7 @@ export const formatFilesData = (files) => {
       file_type,
       file_url,
       file_date,
+      file_mime,
     }) => {
       return {
         spaceId: space_id,
@@ -21,6 +22,7 @@ export const formatFilesData = (files) => {
         type: file_type,
         url: file_url,
         date: file_date,
+        mime: file_mime,
       };
     }
   );
