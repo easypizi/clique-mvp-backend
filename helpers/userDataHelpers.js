@@ -15,6 +15,7 @@ export const formatUsersData = (users) => {
       user_badges,
       user_hidden_spaces,
       liked_by,
+      banned_by,
       connected,
     }) => {
       return {
@@ -24,6 +25,7 @@ export const formatUsersData = (users) => {
         userLink: user_telegram_link,
         userDescription: user_description,
         likes: liked_by,
+        bans: banned_by,
         connected: connected,
         isVisible: is_visible,
         userImage: user_image,
