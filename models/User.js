@@ -18,6 +18,9 @@ const User = new mongoose.Schema({
   user_badges: { type: [String] },
   user_links: { type: [String] },
   user_hidden_spaces: { type: [String] },
+  liked_by: { type: [String] },
+  //SPECIAL FIELD TO PREVENT DOUBLE CONNECTIONS
+  connected: { type: [String] },
 });
 
 User.post(["save", "findOneAndUpdate"], async function (user) {
