@@ -8,6 +8,7 @@ import { formatGroupsData } from "../helpers/groupDataHelpers.js";
 import { formatUsersData } from "../helpers/userDataHelpers.js";
 import { formatMessagesData } from "../helpers/messageDataHelpers.js";
 import { formatFilesData } from "../helpers/fileDataHelpers.js";
+import { sortUsers } from "../helpers/usersSorting.js";
 import Message from "../models/Message.js";
 import File from "../models/File.js";
 
@@ -70,7 +71,7 @@ class SpaceService {
           spaceDescription: currentSpace.space_description,
           spaceOwner: currentSpace.space_owner_id,
           spaceGroups: formatGroupsData(currentSpaceGroups),
-          spaceUsers: formatUsersData(currentSpaceUsers),
+          spaceUsers: sortUsers(formatUsersData(currentSpaceUsers)),
           spaceMessages: formatMessagesData(spaceMessages),
           spaceFiles: formatFilesData(spaceFiles),
           spacePermissions: currentSpace.space_permissions,
