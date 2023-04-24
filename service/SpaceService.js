@@ -65,6 +65,8 @@ class SpaceService {
           space_id: id,
         });
 
+        console.log();
+
         const result = {
           spaceId: spaceId,
           spaceName: currentSpace.space_name,
