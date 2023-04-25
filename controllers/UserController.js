@@ -20,7 +20,7 @@ class UserController {
   async getUserById(request, response) {
     try {
       const user = await UserService.getUserById(request.params.id);
-      return response.status(200).json(user ?? "No user with such ID");
+      return response.status(200).json(user);
     } catch (error) {
       response.status(500).json({ status: "fail", message: error.message });
     }
