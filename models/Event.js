@@ -12,7 +12,7 @@ const Event = new mongoose.Schema({
   event_is_offline: { type: Boolean, required: true },
   event_tags: { type: String },
   event_location: {
-    contry: { type: String },
+    country: { type: String },
     city: { type: String },
     address: { type: String },
     geo: { type: String },
