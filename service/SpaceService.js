@@ -1,6 +1,9 @@
 import Space from "../models/Space.js";
 import Group from "../models/Group.js";
 import User from "../models/User.js";
+import Message from "../models/Message.js";
+import File from "../models/File.js";
+import Event from "../models/Event.js";
 
 import { uniqueArrayElements } from "../helpers/common.js";
 import { mergeSpacePermissions } from "../helpers/spaceDataHelpers.js";
@@ -8,9 +11,8 @@ import { formatGroupsData } from "../helpers/groupDataHelpers.js";
 import { formatUsersData } from "../helpers/userDataHelpers.js";
 import { formatMessagesData } from "../helpers/messageDataHelpers.js";
 import { formatFilesData } from "../helpers/fileDataHelpers.js";
+import { formatEventsData } from "../helpers/eventDataHelpers.js";
 import { sortUsers } from "../helpers/usersSorting.js";
-import Message from "../models/Message.js";
-import File from "../models/File.js";
 
 class SpaceService {
   async createSpace(data) {
@@ -64,6 +66,9 @@ class SpaceService {
         const spaceFiles = await File.find({
           space_id: id,
         });
+        const spaceEvents = await Event.find({
+          event_space_id: id,
+        });
 
         const result = {
           spaceId: spaceId,
@@ -74,6 +79,7 @@ class SpaceService {
           spaceUsers: sortUsers(formatUsersData(currentSpaceUsers)),
           spaceMessages: formatMessagesData(spaceMessages),
           spaceFiles: formatFilesData(spaceFiles),
+          spaceEvents: formatEventsData(spaceEvents),
           spacePermissions: currentSpace.space_permissions,
           spaceHashtags: currentSpace.space_message_hashtags,
         };
