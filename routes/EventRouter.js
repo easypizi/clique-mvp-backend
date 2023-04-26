@@ -12,6 +12,9 @@ eventRouter.get("/event/:id", EventController.getEventById);
 //Create new event
 eventRouter.post("/create-event", EventController.createEvent);
 
+//Update event
+eventRouter.patch("/update-event", EventController.updateEvent);
+
 //Delete event data
 eventRouter.delete("/delete-event/:id", EventController.deleteEvent);
 

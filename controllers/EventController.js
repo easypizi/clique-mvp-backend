@@ -28,6 +28,17 @@ class EventController {
     }
   }
 
+  async updateEvent(request, response) {
+    try {
+      const updatedEvent = await EventService.updateEvent(request.body);
+      return response
+        .status(200)
+        .json({ status: "success", data: updatedEvent });
+    } catch (error) {
+      response.status(500).json({ status: "fail", message: error.message });
+    }
+  }
+
   async deleteEvent(request, response) {
     try {
       const deletedEvent = await EventService.deleteEvent(request.params.id);

@@ -23,6 +23,18 @@ class EventService {
     }
   }
 
+  async updateEvent(eventData) {
+    if (!eventData.event_id) {
+      throw new Error("can't update without event id");
+    }
+    const updatedEvent = Event.findOneAndUpdate(
+      { event_id: eventData.event_id },
+      eventData,
+      { new: true }
+    );
+    return updatedEvent;
+  }
+
   async deleteEvent(id) {
     if (!id) {
       throw new Error("can't delete event without provided event Id");
