@@ -17,12 +17,14 @@ export const formatEventsData = (events) => {
       event_tags,
       event_location,
       event_link,
+      event_timestamp,
     }) => {
       return {
         eventId: event_id,
         title: event_name,
         description: event_description,
         date: event_date,
+        timestamp: event_timestamp,
         organizerName: event_organizer_credentials,
         organizerId: event_organizer_id,
         isReal: event_is_offline,

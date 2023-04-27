@@ -10,6 +10,7 @@ const Event = new mongoose.Schema({
   event_organizer_telegram_link: { type: String, required: true },
   event_organizer_credentials: { type: String, required: true },
   event_is_offline: { type: Boolean, required: true },
+  event_timestamp: { type: Number, required: true },
   event_is_verified: { type: Boolean, required: true },
   event_tags: { type: String },
   event_location: {
