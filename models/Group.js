@@ -17,11 +17,7 @@ Group.post(["save", "findOneAndUpdate"], async function (group) {
   try {
     const groupId = group.group_id;
     const groupAdmins = group.group_admins_id;
-
-    // ищем все Сообщества, в которых space_owner_id совпадает с одним из group_admins_id
     const spaces = await Space.find({ space_owner_id: { $in: groupAdmins } });
-
-    // обновляем поле space_groups_id у найденных Сообществ
     const spaceIds = spaces.map((space) => space.space_id);
 
     await Space.updateMany(
@@ -29,19 +25,7 @@ Group.post(["save", "findOneAndUpdate"], async function (group) {
       { $addToSet: { space_groups_id: groupId } }
     );
 
-    // ищем всех Пользователей, у которых есть совпадения в поле user_groups с хотя бы одним значением space_groups_id из модели Сообщества
-    const spaceGroupIds = await Space.distinct("space_groups_id", {
-      space_id: { $in: spaceIds },
-    });
-
-    console.log("SPACE GROUPS ID: " + spaceGroupIds);
-
     const users = await User.find({ user_groups: { $in: [groupId] } });
-
-    console.log("USERS: " + users);
-
-    console.log("SPACE IDS: " + spaceIds);
-
     const userUpdates = users.map((user) =>
       User.updateOne(
         { _id: user._id },
