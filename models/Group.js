@@ -32,9 +32,15 @@ Group.post(["save", "findOneAndUpdate"], async function (group) {
     const spaceGroupIds = await Space.distinct("space_groups_id", {
       space_id: { $in: spaceIds },
     });
+
+    console.log("SPACE GROUPS ID: " + spaceGroupIds);
+
     const users = await User.find({ user_groups: { $in: spaceGroupIds } });
 
-    // обновляем поле user_spaces у найденных Пользователей
+    console.log("USERS: " + users);
+
+    console.log("SPACE IDS: " + spaceIds);
+
     const userUpdates = users.map((user) =>
       User.updateOne(
         { _id: user._id },
