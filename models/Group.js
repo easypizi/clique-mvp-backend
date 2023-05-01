@@ -23,6 +23,7 @@ Group.post(["save", "findOneAndUpdate"], async function (group) {
 
     // обновляем поле space_groups_id у найденных Сообществ
     const spaceIds = spaces.map((space) => space.space_id);
+
     await Space.updateMany(
       { space_id: { $in: spaceIds } },
       { $addToSet: { space_groups_id: groupId } }
@@ -35,7 +36,7 @@ Group.post(["save", "findOneAndUpdate"], async function (group) {
 
     console.log("SPACE GROUPS ID: " + spaceGroupIds);
 
-    const users = await User.find({ user_groups: { $in: spaceGroupIds } });
+    const users = await User.find({ user_groups: { $in: [groupId] } });
 
     console.log("USERS: " + users);
 
