@@ -41,12 +41,7 @@ class GroupService {
     let updateData = { ...groupData };
 
     if (groupData.group_admins_id) {
-      const currentGroupAdmins = group.group_admins_id;
-      const newAdmins = uniqueArrayElements(
-        currentGroupAdmins,
-        groupData.group_admins_id
-      );
-      updateData.group_admins_id = newAdmins;
+      updateData.group_admins_id = [...new Set(groupData.group_admins_id)];
     }
 
     const updatedGroup = await Group.findOneAndUpdate(
