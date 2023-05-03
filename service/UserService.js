@@ -67,13 +67,7 @@ class UserService {
     let updateData = { ...userData };
 
     if (userData.user_groups) {
-      const currentUserGroups = user.user_groups;
-      const newGroups = uniqueArrayElements(
-        currentUserGroups,
-        userData.user_groups
-      );
-
-      updateData.user_groups = newGroups;
+      updateData.user_groups = [...new Set(userData.user_groups)];
     }
 
     if (userData.user_image) {
