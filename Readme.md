@@ -6,8 +6,10 @@ Service API which used to control data source and transformation for telegram sp
 
 ### Requirements:
 
-- NoSQL DB (currently it works with MongoDB).
+- Node.js ^18+
+- NoSQL DB (currently it works with MongoDB). (Run instance in Docker for local development).
 - Upload service (I've used Upload.io, but can be replaced with any CDN service).
+- Install npm dependencies (run `npm i` before running an app).
 
 ---
 
@@ -16,6 +18,15 @@ Service API which used to control data source and transformation for telegram sp
 ENV File (should be created and filled with data).
 
 Just copy `.env.example` and fill with real data.
+
+---
+
+Commands:
+
+| Command       | Description                   |
+| ------------- | ----------------------------- |
+| npm run start | Start production app          |
+| npm run dev   | Start app in development mode |
 
 ---
 
@@ -42,7 +53,6 @@ which triggered some events on DB side for proper data mutation.
     | user_last_name | String | No | Last name of the user. |
     | user_description | String | No | Description about the user. |
     | is_visible | Boolean | No | If the user is visible. |
-    | ... | ... | ... | ... |
 
 ### GET /api/user/:userId
 
@@ -58,7 +68,6 @@ which triggered some events on DB side for proper data mutation.
     | Field Name | Type | Required | Description |
     | ------------------------ | -------- | -------- | -------------------------------- |
     | user_id | String | Yes | Unique identifier for the user. |
-    | ... | ... | ... | ... |
 
 ### POST /api/create-user
 
@@ -72,7 +81,6 @@ which triggered some events on DB side for proper data mutation.
   | user_last_name | String | No | Last name of the user. |
   | user_description | String | No | Description about the user. |
   | is_visible | Boolean | No | If the user is visible. |
-  | ... | ... | ... | ... |
 
 - **Response Structure**:
   - Status Code: `200 OK`
@@ -124,7 +132,6 @@ which triggered some events on DB side for proper data mutation.
     | Field Name | Type | Required | Description |
     | --------------------- | -------- | -------- | ---------------------------------- |
     | group_id | String | Yes | Unique identifier for the group. |
-    | ... | ... | ... | ... |
 
 ### POST /api/create-group
 
@@ -190,7 +197,6 @@ which triggered some events on DB side for proper data mutation.
     | Field Name | Type | Required | Description |
     | ------------------------ | --------- | -------- | --------------------------------- |
     | space_id | String | Yes | Unique identifier for the space. |
-    | ... | ... | ... | ... |
 
 ### POST /api/create-space
 
@@ -264,7 +270,6 @@ which triggered some events on DB side for proper data mutation.
     | Field Name | Type | Required | Description |
     | -------------------------------- | ------- | -------- | ------------------------------------ |
     | event_id | String | Yes | Unique identifier for the event. |
-    | ... | ... | ... | ... |
 
 ### POST /api/create-event
 
