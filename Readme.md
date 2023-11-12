@@ -102,7 +102,7 @@ which triggered some events on DB side for proper data mutation.
   - Status Code: `200 OK`
   - Response: Array of `Group` objects.
     | Field Name | Type | Required | Description |
-    | -------------------- | -------- | -------- | ----------------------------------- |
+    | --------------------- | -------- | -------- | ---------------------------------- |
     | group_id | String | Yes | Unique identifier for the group. |
     | group_admins_id | [String] | Yes | IDs of group admins. |
     | group_link | String | No | Link to the group. |
@@ -110,19 +110,19 @@ which triggered some events on DB side for proper data mutation.
     | group_type | String | No | Type of the group. |
     | group_hidden_spaces | [String] | No | IDs of hidden spaces in the group. |
 
-### GET /api/group/:id
+### GET /api/group/:groupId
 
 - **Description**: Retrieve a group by ID.
 - **Request Parameters**:
   | Parameter Name | Type | Is Required | Description |
   | -------------- | ------ | ----------- | --------------------------- |
-  | id | String | Yes | Unique identifier of group. |
+  | groupId | String | Yes | Unique identifier of group. |
 
 - **Response Structure**:
   - Status Code: `200 OK`
   - Response: `Group` object.
     | Field Name | Type | Required | Description |
-    | -------------------- | -------- | -------- | ----------------------------------- |
+    | --------------------- | -------- | -------- | ---------------------------------- |
     | group_id | String | Yes | Unique identifier for the group. |
     | ... | ... | ... | ... |
 
@@ -130,53 +130,30 @@ which triggered some events on DB side for proper data mutation.
 
 - **Description**: Create a new group.
 - **Request Parameters**:
-  | Parameter Name | Type | Is Required | Description |
-  | --------------------- | -------- | ----------- | --------------------------- |
-  | group_id | String | Yes | Unique identifier for group.|
+  | Field Name | Type | Required | Description |
+  | --------------------- | -------- | -------- | ---------------------------------- |
+  | group_id | String | Yes | Unique identifier for the group. |
   | group_admins_id | [String] | Yes | IDs of group admins. |
   | group_link | String | No | Link to the group. |
   | group_name | String | No | Name of the group. |
   | group_type | String | No | Type of the group. |
-  | group_hidden_spaces | [String] | No | IDs of hidden spaces. |
+  | group_hidden_spaces | [String] | No | IDs of hidden spaces in the group. |
 
 - **Response Structure**:
   - Status Code: `200 OK`
-  - Response: `Group` object.
-    | Field Name | Type | Required | Description |
-    | -------------------- | -------- | -------- | ----------------------------------- |
-    | group_id | String | Yes | Unique identifier for the group. |
-    | group_admins_id | [String] | Yes | IDs of group admins. |
-    | group_link | String | No | Link to the group. |
-    | group_name | String | No | Name of the group. |
-    | group_type | String | No | Type of the group. |
-    | group_hidden_spaces | [String] | No | IDs of hidden spaces in the group. |
+  - Response: `Group` object with created data.
 
-### PATCH /api/update-group
-
-- **Description**: Update group data.
-- **Request Parameters**: Similar to `POST /api/create-group`, but not all fields are required.
-- **Response Structure**:
-  - Status Code: `200 OK`
-  - Response: `Group` object with updated data.
-    | Field Name | Type | Required | Description |
-    | -------------------- | -------- | -------- | ----------------------------------- |
-    | group_id | String | Yes | Unique identifier for the group. |
-    | ... | ... | ... | ... |
-
-### DELETE /api/delete-group/:id
+### DELETE /api/delete-group/:groupId
 
 - **Description**: Delete a group.
 - **Request Parameters**:
   | Parameter Name | Type | Is Required | Description |
-  | -------------- | ------ | ----------- | --------------------------- |
-  | id | String | Yes | Unique identifier of group. |
+  | -------------------- | ------ | ----------- | --------------------------- |
+  | groupId | String | Yes | Unique identifier of group. |
 
 - **Response Structure**:
   - Status Code: `200 OK`
   - Response: Deletion status message.
-    | Field Name | Type | Description |
-    | ---------- | ------ | ------------------------------ |
-    | message | String | Message about the deletion. |
 
 ---
 
